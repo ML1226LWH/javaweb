@@ -33,7 +33,7 @@
 
     <servlet-mapping>
         <servlet-name>validateCodeServlet</servlet-name>
-        <url-pattern>/validateCodeServlet</url-pattern>
+        <url-pattern>/validateCode</url-pattern>
     </servlet-mapping>
 
     <filter>

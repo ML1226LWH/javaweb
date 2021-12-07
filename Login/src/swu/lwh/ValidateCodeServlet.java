@@ -18,6 +18,7 @@ public class ValidateCodeServlet extends HttpServlet {
         ValidateCode coder = new ValidateCode();
         session.setAttribute(AuthFilter.LOGIN_VALIDATE_CODE, coder.getCodeString());
         response.setContentType("image/png");
+        //if(coder.getCodeString().equals(request.getParameter()))
         try (OutputStream output = response.getOutputStream()) {
             coder.outputCodeImage(output);
 

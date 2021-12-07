@@ -23,18 +23,6 @@ public class ValidateCode {
         this.createCode();
     }
 
-    public ValidateCode(int width, int height) {
-        this.width = width;
-        this.height = height;
-        this.createCode();
-    }
-
-    public ValidateCode(int width, int height, int codeCount) {
-        this.width = width;
-        this.height = height;
-        this.codeCount = codeCount;
-        this.createCode();
-    }
 
     private void createCode() {
         Random random = new Random();
@@ -89,10 +77,10 @@ public class ValidateCode {
         return new Color(red, green, blue);
     }
 
-    public void outputCodeImage(String path) throws IOException {
+/*    public void outputCodeImage(String path) throws IOException {
         FileOutputStream output = new FileOutputStream(path);
         this.outputCodeImage(output);
-    }
+    }*/
 
     public void outputCodeImage(OutputStream output) throws IOException {
         ImageIO.write(this.codeImage, "png", output);

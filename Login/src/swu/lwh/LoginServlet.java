@@ -4,6 +4,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.Writer;
 import java.sql.SQLException;
@@ -16,10 +17,11 @@ public class LoginServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.doPost(request,response);
     }
-    public void doPost(HttpServletRequest request,HttpServletResponse response){
+    public void doPost(HttpServletRequest request,HttpServletResponse response) throws IOException {
         response.setCharacterEncoding("UTF-8");
         String users=request.getParameter("users");
         String password=request.getParameter("pwd");
+        String code=request.getParameter("code");
         Logs logs=new Logs();
         logs.setUsers(users);
         logs.setPwd(password);
@@ -36,9 +38,21 @@ public class LoginServlet extends HttpServlet {
                         "</head>" +
                         "<body>" +
                         "<div style='text-align:center'><h1> ");
+        HttpSession session = request.getSession(true);
+        String validateCode = (String) session.getAttribute(AuthFilter.LOGIN_VALIDATE_CODE);
+        if (validateCode == null || !validateCode.equalsIgnoreCase(code)) {
+            response.sendRedirect("index.jsp");
+            return;
+        }
         try {
-            sb.append(check(logs.getUsers(),logs.getPwd()));
-        } catch (SQLException e) {
+
+
+            if(check(logs.getUsers(),logs.getPwd()).equals("µÇÂ½Ê§°Ü£¡"))
+            {
+                response.sendRedirect("index.jsp");
+            }
+            else{sb.append(check(logs.getUsers(),logs.getPwd()));}
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
         sb.append("</h1></div>"+ "</body></html>");//´òÓ¡Êä³öµÇÂ¼ÐÅÏ¢

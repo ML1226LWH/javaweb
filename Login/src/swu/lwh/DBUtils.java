@@ -36,7 +36,6 @@ public class DBUtils {
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
             try (Statement statement = connection.createStatement()) {
                 System.out.println("÷¥––≤È—Ø÷–°≠°≠");
-                System.out.println("sql1:"+sql);
                 ResultSet rs = statement.executeQuery(sql);
                 System.out.println("sql2:"+sql);
                 while (rs.next()) {
